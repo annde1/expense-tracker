@@ -2,15 +2,18 @@ import { useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../firebase/firebaseConfig";
 
-//onAuthStateChanged - firebase function that listens for changes in authentication state
 export const useAuth = () => {
-  const [user, setUser] = useState(null); // init the state with null, we are going to keep the current authenticated user object here
+  const [user, setUser] = useState(null); // Initialize the state with null
+  const [loading, setLoading] = useState(true); // Initialize loading state to true
+
   useEffect(() => {
-    //Set up listener for authentication state changes. onAuthStateChanged takes in two args: 1) firebase auth instance 2) callback function that updates the user state with the current user object whenever it changes
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false); // Set loading to false once auth state is checked
     });
-    return () => unsubscribe(); //clean-up
+
+    return () => unsubscribe(); // Clean-up the listener on component unmount
   }, []);
-  return { user }; //return user state
+
+  return { user, loading }; // Return user and loading state
 };
