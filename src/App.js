@@ -1,24 +1,61 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
+import {
+  registerWithEmailAndPassword,
+  loginWithEmailAndPassword,
+  signInWithGoogle,
+  logout,
+} from "./firebase/firebaseUtils";
 
 function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await loginWithEmailAndPassword(email, password);
+      console.log(user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleGoogleLogin = async () => {
+    try {
+      const user = await signInWithGoogle();
+      console.log(user);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  const handleLogout = async () => {
+    try {
+      await logout();
+      console.log("you have been logged out");
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <form onSubmit={handleLogin}>
+        <label>Email</label>
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        ></input>
+        <label>Password</label>
+        <input
+          type="text"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        ></input>
+        <button type="submit">Register</button>
+      </form>
+      <button onClick={handleGoogleLogin}>GOOGLE</button>
+      <button onClick={handleLogout}>Logout</button>
+    </>
   );
 }
 
