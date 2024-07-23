@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 
 function AuthGuard({ children }) {
-  const loggedIn = useSelector((state) => state.authenticationSlice.loggedIn);
+  const { loggedIn } = useSelector((state) => state.authentication);
   useEffect(() => {
     console.log(loggedIn);
   }, [loggedIn]);

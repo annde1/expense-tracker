@@ -3,6 +3,7 @@ import { AppRouter } from "./router/Router";
 import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { auth } from "./firebase/firebaseConfig";
+import "./App.css";
 
 function App() {
   useEffect(() => {

@@ -5,11 +5,11 @@ import { logout } from "../firebase/firebaseUtils";
 
 function LoginPage() {
   const dispatch = useDispatch();
-  const userData = useSelector((store) => store.authenticationSlice.userData);
+
   const handleGoogleLogin = async () => {
     try {
       const user = await signInWithGoogle();
-      console.log(user);
+      // console.log(user);
       dispatch(
         authActions.login({
           uid: user.uid,
@@ -30,15 +30,13 @@ function LoginPage() {
       console.log(err);
     }
   };
-  const handleUser = () => {
-    console.log(userData);
-  };
+
   return (
     <>
       <h1>Login</h1>
       <button onClick={handleGoogleLogin}>GOOGLE</button>
       <button onClick={handleLogout}>Logout</button>
-      <button onClick={handleUser}>Show user</button>
+      {/* <button onClick={handleUser}>Show user</button> */}
     </>
   );
 }

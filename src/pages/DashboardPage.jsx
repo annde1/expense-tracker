@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 function DashboardPage() {
-  const userData = useSelector((store) => store.authenticationSlice.userData);
+  const { userData } = useSelector((state) => state.authentication);
   useEffect(() => {
     console.log(userData);
   }, [userData]);
