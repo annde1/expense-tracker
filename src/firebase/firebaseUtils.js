@@ -7,6 +7,8 @@ import {
   GithubAuthProvider,
 } from "firebase/auth";
 import { auth } from "./firebaseConfig";
+import { firestore } from "./firebaseConfig";
+import { collection, addDoc } from "firebase/firestore";
 
 export const registerWithEmailAndPassword = async (email, password) => {
   try {
@@ -53,6 +55,15 @@ export const signInWithGitHub = async () => {
 export const logout = async () => {
   try {
     await signOut(auth);
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const createNewExpense = async (expense) => {
+  try {
+    const docRef = await addDoc(collection(firestore, "expenses"), expense);
+    return docRef;
   } catch (err) {
     throw err;
   }

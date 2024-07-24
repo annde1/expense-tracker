@@ -3,15 +3,38 @@ import { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
-
+import { useSelector } from "react-redux";
+import { createNewExpense } from "../firebase/firebaseUtils";
 function NewExpenseForm() {
   const [date, setDate] = useState(null); //for submiting I need date._d
   const [expenseName, setExpenseName] = useState("");
   const [expenseValue, setExpenseValue] = useState("");
   const [expenseDescription, setExpenseDescription] = useState("");
-
+  const { userData } = useSelector((state) => state.authentication); //TODO: for submiting new expense
+  useEffect(() => {
+    console.log(userData);
+  }, [userData]);
   const handleDateChange = (date) => {
     setDate(date);
+  };
+
+  const handleAddExpense = async (e) => {
+    e.preventDefault();
+    try {
+      const expense = {
+        name: expenseName,
+        value: parseFloat(parseFloat(expenseValue).toFixed(2)),
+        description: expenseDescription,
+        date: date._d,
+        userId: userData.uid,
+        //todo: add validation
+      };
+      const data = await createNewExpense(expense);
+      console.log(data);
+      //todo: clear fields
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <div
@@ -32,13 +55,18 @@ function NewExpenseForm() {
           Add Expense
         </h2>
 
-        <Form style={{ width: "80%" }}>
+        <Form style={{ width: "80%" }} onSubmit={handleAddExpense}>
           <Form.Group
             className="mb-3"
             controlId="formExpenseName"
             style={{ flexBasis: "90%" }}
           >
-            <Form.Control type="text" placeholder="Expense name" />
+            <Form.Control
+              type="text"
+              placeholder="Expense name"
+              value={expenseName}
+              onChange={(e) => setExpenseName(e.target.value)}
+            />
           </Form.Group>
           <div
             style={{
