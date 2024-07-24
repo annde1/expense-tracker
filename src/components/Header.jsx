@@ -5,21 +5,24 @@ import { authActions } from "../store/authenticationSlice";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../router/routes";
 import { NavLink } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function Header() {
   const dispatch = useDispatch();
   const { loggedIn } = useSelector((state) => state.authentication);
   const navigate = useNavigate();
+  const location = useLocation();
+
   const handleLogout = async () => {
     try {
       await logout();
       dispatch(authActions.logout());
-      console.log("You are logged out.");
       navigate(ROUTES.LOGIN);
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <div style={{ marginTop: "4rem" }}>
       <div
@@ -51,10 +54,12 @@ function Header() {
           </button>
         ) : (
           <NavLink
-            to="/register"
+            to={location.pathname === "/register" ? "/login" : "/register"}
             style={{ textDecoration: "none", color: "white" }}
           >
-            <p> Create account</p>
+            <p>
+              {location.pathname === "/register" ? "Login" : "Create account"}
+            </p>
           </NavLink>
         )}
       </div>

@@ -8,6 +8,9 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import store, { persistor } from "./store/storeConfig";
 import { BrowserRouter } from "react-router-dom";
+import "react-dates/initialize";
+import "react-dates/lib/css/_datepicker.css";
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>

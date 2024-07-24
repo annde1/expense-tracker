@@ -4,18 +4,25 @@ import { FaGoogle } from "react-icons/fa";
 import { FaGithub } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { signInWithGitHub, signInWithGoogle } from "../firebase/firebaseUtils";
+import {
+  loginWithEmailAndPassword,
+  signInWithGitHub,
+  signInWithGoogle,
+} from "../firebase/firebaseUtils";
 import { authActions } from "../store/authenticationSlice";
 import { ROUTES } from "../router/routes";
-
+import { useState } from "react";
+import { formatError } from "../helpers/helpers";
 function LoginForm() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleGoogleLogin = async () => {
     try {
       const user = await signInWithGoogle();
-      // console.log(user);
       dispatch(
         authActions.login({
           uid: user.uid,
@@ -32,7 +39,7 @@ function LoginForm() {
   const handleGitHubLogin = async () => {
     try {
       const user = await signInWithGitHub();
-      console.log(user);
+
       dispatch(
         authActions.login({
           uid: user.uid,
@@ -45,6 +52,24 @@ function LoginForm() {
       console.log(err);
     }
   };
+
+  const handleEmailAndPasswordLogin = async (e) => {
+    e.preventDefault();
+    try {
+      const user = await loginWithEmailAndPassword(email, password);
+      dispatch(
+        authActions.login({
+          uid: user.uid,
+          email: user.email,
+          displayName: user.displayName,
+        })
+      );
+      navigate(ROUTES.DASHBOARD);
+    } catch (err) {
+      const error = formatError(err.code);
+      setError(error);
+    }
+  };
   return (
     <>
       <div
@@ -54,16 +79,7 @@ function LoginForm() {
           marginTop: "2.5rem",
         }}
       >
-        <div
-          style={{
-            width: "70%",
-            borderRadius: "20px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <div className="login-container">
           <h2
             style={{
               color: "white",
@@ -73,14 +89,29 @@ function LoginForm() {
           >
             Login
           </h2>
-          <Form style={{ width: "60%" }}>
+          <Form style={{ width: "60%" }} onSubmit={handleEmailAndPasswordLogin}>
             <Form.Group className="mb-4" controlId="formBasicEmail">
-              <Form.Control type="email" placeholder="Email" />
+              <Form.Control
+                type="email"
+                placeholder="Email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
             </Form.Group>
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
+              />
             </Form.Group>
+            {error && <p style={{ color: "white" }}>{error}</p>}
             <Button
               variant="info"
               type="submit"
@@ -90,12 +121,13 @@ function LoginForm() {
               Sign In
             </Button>
           </Form>
+          <p style={{ color: "white", fontWeight: "600" }}>Or login with:</p>
           <div
             style={{
               width: "60%",
               display: "flex",
               justifyContent: "center",
-              marginTop: "2rem",
+              marginTop: "0.5rem",
               marginBottom: "2rem",
             }}
           >

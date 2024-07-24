@@ -5,12 +5,10 @@ import { useEffect } from "react";
 
 function AuthGuard({ children }) {
   const { loggedIn } = useSelector((state) => state.authentication);
-  useEffect(() => {
-    console.log(loggedIn);
-  }, [loggedIn]);
-  if (!loggedIn) {
-    return <p>Waiting...</p>;
-  }
+  // useEffect(() => {
+  //   console.log(loggedIn);
+  // }, [loggedIn]);
+
   if (loggedIn) {
     return children;
   } else {

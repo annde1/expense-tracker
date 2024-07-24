@@ -1,4 +1,10 @@
+import NewExpenseForm from "../components/NewExpenseForm";
+
 function NewExpensePage() {
-  return <h1>Add Expense</h1>;
+  return (
+    <>
+      <NewExpenseForm />
+    </>
+  );
 }
 export default NewExpensePage;

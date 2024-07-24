@@ -17,7 +17,7 @@ export const registerWithEmailAndPassword = async (email, password) => {
     );
     return userCredential.user;
   } catch (err) {
-    throw new Error(err.message);
+    throw err;
   }
 };
 export const loginWithEmailAndPassword = async (email, password) => {
@@ -25,7 +25,7 @@ export const loginWithEmailAndPassword = async (email, password) => {
     const user = await signInWithEmailAndPassword(auth, email, password);
     return user.user;
   } catch (err) {
-    throw new Error(err.message);
+    throw err;
   }
 };
 
@@ -36,7 +36,7 @@ export const signInWithGoogle = async () => {
     const user = result.user;
     return user;
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 };
 
@@ -53,8 +53,7 @@ export const signInWithGitHub = async () => {
 export const logout = async () => {
   try {
     await signOut(auth);
-    console.log("LOGGED OUT");
   } catch (err) {
-    throw new Error(err);
+    throw err;
   }
 };
