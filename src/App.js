@@ -4,6 +4,8 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { auth } from "./firebase/firebaseConfig";
 import "./App.css";
+import { Container } from "react-bootstrap";
+import Layout from "./layout/Layout";
 
 function App() {
   useEffect(() => {
@@ -22,9 +24,11 @@ function App() {
   }, []);
 
   return (
-    <>
-      <AppRouter />
-    </>
+    <Container>
+      <Layout>
+        <AppRouter />
+      </Layout>
+    </Container>
   );
 }
 

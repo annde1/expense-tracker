@@ -4,9 +4,9 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
+  GithubAuthProvider,
 } from "firebase/auth";
 import { auth } from "./firebaseConfig";
-import { useDispatch } from "react-redux";
 
 export const registerWithEmailAndPassword = async (email, password) => {
   try {
@@ -40,6 +40,16 @@ export const signInWithGoogle = async () => {
   }
 };
 
+export const signInWithGitHub = async () => {
+  const provider = new GithubAuthProvider();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const user = result.user;
+    return user;
+  } catch (err) {
+    throw err;
+  }
+};
 export const logout = async () => {
   try {
     await signOut(auth);
