@@ -1,10 +1,9 @@
-// src/store/authenticationSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = { loggedIn: false, userData: undefined };
 
 const authenticationSlice = createSlice({
-  name: "authentication", // Use "authentication" to match the store key
+  name: "authentication",
   initialState,
   reducers: {
     login(state, action) {

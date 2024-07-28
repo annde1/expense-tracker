@@ -1,19 +1,25 @@
 import DatePicker from "./DatePicker";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import { useSelector } from "react-redux";
 import { createNewExpense } from "../firebase/firebaseUtils";
+import { validateCreateExpense } from "../validation/validation";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../router/routes";
+import { RiMoneyDollarCircleFill } from "react-icons/ri";
+import { NavLink } from "react-router-dom";
+import { success } from "../helpers/toastify";
 function NewExpenseForm() {
-  const [date, setDate] = useState(null); //for submiting I need date._d
+  const [date, setDate] = useState(null);
   const [expenseName, setExpenseName] = useState("");
   const [expenseValue, setExpenseValue] = useState("");
   const [expenseDescription, setExpenseDescription] = useState("");
-  const { userData } = useSelector((state) => state.authentication); //TODO: for submiting new expense
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
+  const { userData } = useSelector((state) => state.authentication);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
   const handleDateChange = (date) => {
     setDate(date);
   };
@@ -25,37 +31,32 @@ function NewExpenseForm() {
         name: expenseName,
         value: parseFloat(parseFloat(expenseValue).toFixed(2)),
         description: expenseDescription,
-        date: date._d,
+        date: date?._d,
         userId: userData.uid,
-        //todo: add validation
       };
-      const data = await createNewExpense(expense);
-      console.log(data);
-      //todo: clear fields
+      const error = validateCreateExpense(expense);
+
+      if (Object.keys(error).length > 0) {
+        setError(error);
+        return;
+      }
+      await createNewExpense(expense);
+      success("Expense created 💰");
+      setDate(null);
+      setExpenseName("");
+      setExpenseDescription("");
+      setExpenseValue("");
+      navigate(ROUTES.DASHBOARD);
     } catch (err) {
       console.log(err);
     }
   };
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        marginTop: "2.5rem",
-      }}
-    >
-      <div className="login-container">
-        <h2
-          style={{
-            color: "white",
-            marginTop: "3rem",
-            marginBottom: "2rem",
-          }}
-        >
-          Add Expense
-        </h2>
+    <div className="addExpenseContainer">
+      <div style={{ display: "flex", flexDirection: "column" }}>
+        <h2 className="addExpenseHeading">Add Expense</h2>
 
-        <Form style={{ width: "80%" }} onSubmit={handleAddExpense}>
+        <Form className="addExpenseForm" onSubmit={handleAddExpense}>
           <Form.Group
             className="mb-3"
             controlId="formExpenseName"
@@ -65,8 +66,12 @@ function NewExpenseForm() {
               type="text"
               placeholder="Expense name"
               value={expenseName}
+              className="input"
               onChange={(e) => setExpenseName(e.target.value)}
             />
+            {error && error.expenseName && (
+              <p style={{ color: "white" }}>{error.expenseName}</p>
+            )}
           </Form.Group>
           <div
             style={{
@@ -76,16 +81,23 @@ function NewExpenseForm() {
             }}
           >
             <Form.Group
-              className="mb-3"
+              className={error?.expenseDate ? "mb-1" : "mb-3"}
               controlId="formExpenseValue"
               style={{ flexBasis: "90%" }}
             >
               <Form.Control
                 type="text"
+                className="input"
                 placeholder="Expense value"
                 value={expenseValue}
                 onChange={(e) => setExpenseValue(e.target.value)}
               />
+              {error && error.expenseValue && (
+                <p style={{ color: "white" }}>{error.expenseValue}</p>
+              )}
+              {error && error.expenseDate && (
+                <p style={{ color: "white" }}>{error.expenseDate}</p>
+              )}
             </Form.Group>
             <div style={{ flexBasis: "10%" }}>
               <DatePicker onDateChange={handleDateChange} date={date} />
@@ -96,20 +108,25 @@ function NewExpenseForm() {
               as="textarea"
               placeholder="Leave a comment here"
               style={{ height: "100px" }}
-              className="mb-3"
+              className="mb-3 input"
               value={expenseDescription}
               onChange={(e) => setExpenseDescription(e.target.value)}
             />
+            {error && error.expenseDescription && (
+              <p style={{ color: "white" }}>{error.expenseDescription}</p>
+            )}
           </FloatingLabel>
-          <Button
-            color="primary"
-            style={{ color: "white" }}
-            type="submit"
-            variant="info"
-          >
+          <Button className="button" type="submit">
             Add Expense
           </Button>
         </Form>
+
+        <NavLink className="goToDashboardIcon" to="/dashboard">
+          <div className="goToDashboardLinkContainer">
+            <RiMoneyDollarCircleFill />
+            <p className="goToDashboardLinkText">Go to dashboard</p>
+          </div>
+        </NavLink>
       </div>
     </div>
   );

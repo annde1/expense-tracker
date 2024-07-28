@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../router/routes";
 import { registerWithEmailAndPassword } from "../firebase/firebaseUtils";
 import { formatError } from "../helpers/helpers";
+import { success } from "../helpers/toastify";
 function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -22,8 +23,8 @@ function RegisterForm() {
         setErrors(error);
         return;
       }
-      console.log("OK");
       await registerWithEmailAndPassword(email, password);
+      success("User registered. Redirecting to login.");
       navigate(ROUTES.LOGIN);
     } catch (err) {
       const error = formatError(err.code);
@@ -32,27 +33,13 @@ function RegisterForm() {
   };
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "2.5rem",
-        }}
-      >
-        <div
-          style={{
-            width: "70%",
-            borderRadius: "20px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Form style={{ width: "60%" }} onSubmit={handleRegister}>
+      <div className="pageContainer">
+        <div className="registerFormContainer">
+          <Form className="form" onSubmit={handleRegister}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
               <Form.Control
                 type="email"
+                className="input inputRegister"
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => {
@@ -63,6 +50,7 @@ function RegisterForm() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Control
+                className="input inputRegister"
                 type="password"
                 placeholder="Password"
                 value={password}
@@ -73,6 +61,7 @@ function RegisterForm() {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicPasswordRepat">
               <Form.Control
+                className="input inputRegister"
                 type="password"
                 placeholder="Repeat password"
                 value={repeatPassword}
@@ -90,12 +79,7 @@ function RegisterForm() {
             {errors && errors.password && (
               <p style={{ color: "white" }}>{errors.password}</p>
             )}
-            <Button
-              color="primary"
-              style={{ color: "white" }}
-              type="submit"
-              variant="info"
-            >
+            <Button className="button" type="submit">
               Register
             </Button>
           </Form>

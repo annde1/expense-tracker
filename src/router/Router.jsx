@@ -1,13 +1,14 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
 import { ROUTES } from "./routes";
 import RegisterPage from "../pages/RegisterPage";
 import LoginPage from "../pages/LoginPage";
 import AuthGuard from "../Guard/AuthGuard";
 import DashboardPage from "../pages/DashboardPage";
-// import { BrowserRouter as Router } from "react-router-dom";
 import NewExpensePage from "../pages/NewExpensePage";
 import GuestGuard from "../Guard/GuestGuard";
-//TODO: Homepage
+import NotFound from "../pages/NotFound";
+import EditExpensePage from "../pages/EditExpensePage";
+
 export const AppRouter = () => {
   return (
     <Routes>
@@ -36,6 +37,14 @@ export const AppRouter = () => {
         }
       />
       <Route
+        path={ROUTES.HOME}
+        element={
+          <AuthGuard>
+            <Navigate to={ROUTES.DASHBOARD} />
+          </AuthGuard>
+        }
+      />
+      <Route
         path={ROUTES.NEWEXPENSE}
         element={
           <AuthGuard>
@@ -43,6 +52,15 @@ export const AppRouter = () => {
           </AuthGuard>
         }
       />
+      <Route
+        path={`${ROUTES.EDITEXPENSE}/:id`}
+        element={
+          <AuthGuard>
+            <EditExpensePage />
+          </AuthGuard>
+        }
+      />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

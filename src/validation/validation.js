@@ -15,3 +15,21 @@ export const validateRegister = (email, password, repeatPassword) => {
   }
   return error;
 };
+
+export const validateCreateExpense = (expense) => {
+  const error = {};
+  if (!expense.name) {
+    error.expenseName = "Expense name is required.";
+  }
+
+  if (!expense.value) {
+    error.expenseValue = "Expense value is required and must be a number.";
+  }
+  if (!expense.date) {
+    error.expenseDate = "Date is required.";
+  }
+  if (expense.description.length > 100) {
+    error.expenseDescription = "Description must be below 100 characters.";
+  }
+  return error;
+};

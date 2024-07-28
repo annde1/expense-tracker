@@ -1,10 +1,24 @@
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../router/routes";
+import { IoAddCircleSharp } from "react-icons/io5";
+import ExpensesList from "../components/ExpensesList";
+
 function DashboardPage() {
-  const { userData } = useSelector((state) => state.authentication);
-  useEffect(() => {
-    console.log(userData);
-  }, [userData]);
-  return <p>Hello user</p>;
+  const navigate = useNavigate();
+
+  return (
+    <div className="dashboardPageContainer">
+      <h1 className="pageTitle">Dashboard</h1>
+      <ExpensesList />
+      <button
+        className="expenseButton"
+        onClick={() => {
+          navigate(ROUTES.NEWEXPENSE);
+        }}
+      >
+        <IoAddCircleSharp className="addExpenseButton" />
+      </button>
+    </div>
+  );
 }
 export default DashboardPage;

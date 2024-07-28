@@ -24,38 +24,21 @@ function Header() {
   };
 
   return (
-    <div style={{ marginTop: "4rem" }}>
-      <div
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "space-between",
-        }}
-      >
+    <div className="header">
+      <div className="headerContainer">
         <div style={{ color: "white" }}>
           <h1>Expense</h1>
           <h2>Tracker</h2>
         </div>
         {loggedIn ? (
-          <button
-            onClick={handleLogout}
-            style={{
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              color: "white",
-            }}
-          >
-            <CiLogout style={{ fontSize: "2.5rem" }} />
-            <p>Logout</p>
+          <button onClick={handleLogout} className="customButton">
+            <CiLogout className="logoutButton" />
+            <p className="logoutButtonTitle">Logout</p>
           </button>
         ) : (
           <NavLink
             to={location.pathname === "/register" ? "/login" : "/register"}
-            style={{ textDecoration: "none", color: "white" }}
+            className="navLink"
           >
             <p>
               {location.pathname === "/register" ? "Login" : "Create account"}

@@ -1,8 +1,24 @@
 /* Style the SingleDatePicker input */
 .SingleDatePickerInput {
-  border-radius: 0.375rem;
+  border-radius: 20px;
 }
 .DateInput_input {
   height: 2.24rem;
-  border-radius: 0.375rem;
+  border-radius: 20px;
+  font-family: "Poppins", sans-serif;
+  color: black;
+  font-weight: 500;
+  font-size: 1em;
+}
+.DateRangePicker {
+  margin-bottom: 1rem;
+}
+.DateRangePickerInput,
+.DateInput {
+  border-radius: 20px;
+}
+@media (max-width: 430px) {
+  .SingleDatePicker_picker_1 {
+    position: relative;
+  }
 }

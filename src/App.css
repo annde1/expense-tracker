@@ -51,9 +51,20 @@
     #0f0c29
   ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
-.login-container {
+.loginFormContainer {
   width: 60vw;
   border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.pageContainer {
+  display: flex;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+.dashboardPageContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -64,6 +75,239 @@
     width: 100vw;
   }
 }
-.SingleDatePicker {
-  width: 100%;
+.DateRangePicker {
+  border-radius: 20px;
+}
+.customButton {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: white;
+}
+.navLink {
+  text-decoration: none;
+  color: white;
+}
+.navLink:hover {
+  text-decoration: underline;
+}
+.headerContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.pageTitle {
+  color: white;
+  margin-top: 3rem;
+  margin-bottom: 4rem;
+}
+
+.providerButton {
+  color: white;
+  font-size: 2rem;
+}
+.providersContainer {
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 2rem;
+}
+.addExpenseForm {
+  width: 80%;
+}
+.addExpenseContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+.input {
+  border-radius: 20px;
+}
+.inputRegister {
+  margin-bottom: 1.5rem;
+}
+.button {
+  color: white;
+  background-color: #3ccf83;
+  border-color: #3ccf83;
+  border-radius: 20px;
+}
+.form {
+  width: 60%;
+}
+.registerFormContainer {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.loginWith {
+  color: white;
+  font-weight: 600;
+  margin-top: 2rem;
+}
+.expenseSearch {
+  border-radius: 20px;
+  width: 44%;
+  margin-bottom: 2rem;
+}
+.sortSelect {
+  border-radius: 20px;
+  margin-bottom: 2rem;
+  width: 20%;
+  margin-right: 1rem;
+}
+.expenseButton {
+  background: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+  align-self: flex-end;
+  justify-self: flex-end;
+  margin-top: 2rem;
+}
+.addExpenseButton {
+  font-size: 4rem;
+  color: #3ccf83;
+  margin-bottom: 2rem;
+}
+
+.registerHeading {
+  text-align: center;
+  color: white;
+  margin-top: 2rem;
+}
+.expensesGrid {
+  margin-top: 2rem;
+}
+.expenseCard {
+  border-radius: 20px;
+  border: none;
+}
+.expenseCard:hover {
+  cursor: pointer;
+}
+.expenseCardText {
+  font-weight: 600;
+  font-size: 1.7rem;
+  text-align: right;
+  margin-top: 4rem;
+}
+.logoutButton {
+  font-size: 2.5rem;
+}
+.logoutButtonTitle {
+  font-size: 1rem;
+}
+.header {
+  margin-top: 3rem;
+}
+.addExpenseHeading {
+  color: white;
+  margin-top: 3rem;
+  margin-bottom: 2rem;
+}
+.goToDashboardIcon {
+  color: #3ccf83;
+  font-size: 4rem;
+  margin-top: 2rem;
+  align-self: flex-end;
+  text-decoration-color: white;
+}
+.goToDashboardLinkContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.goToDashboardLinkText {
+  font-size: 0.9rem;
+  color: white;
+  margin-top: 0.8rem;
+}
+.editExpenseBtn {
+  margin-right: 1rem;
+}
+.deleteBtn {
+  background-color: red;
+  border-color: red;
+}
+
+.notFoundPageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+.notFoundHeadingContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.fourOfour {
+  color: white;
+  font-size: 3rem;
+  margin-right: 1rem;
+}
+.fourOfourText {
+  color: white;
+  font-size: 1.4rem;
+}
+
+@media (max-width: 430px) {
+  .addExpenseForm {
+    width: 100%;
+  }
+  .addExpenseContainer {
+    justify-content: center;
+    align-items: center;
+  }
+  .form {
+    width: 120%;
+  }
+  .input {
+    border-radius: 18px;
+  }
+  .button {
+    border-radius: 18px;
+  }
+  .expenseSearch {
+    width: 100%;
+  }
+  .sortSelect {
+    width: 50%;
+  }
+  .logoutButton {
+    font-size: 2rem;
+  }
+  .logoutButtonTitle {
+    font-size: 0.9rem;
+  }
+  .header {
+    margin-top: 2rem;
+  }
+  .pageTitle {
+    margin-bottom: 3rem;
+  }
+  .addExpenseHeading {
+    margin-top: 2rem;
+  }
+  .fourOfourText {
+    font-size: 0.8rem;
+    text-align: center;
+  }
+  .fourOfour {
+    font-size: 2rem;
+  }
 }

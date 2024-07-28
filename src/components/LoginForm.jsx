@@ -32,7 +32,7 @@ function LoginForm() {
       );
       navigate(ROUTES.DASHBOARD);
     } catch (err) {
-      console.log(err.code);
+      console.log(err);
     }
   };
 
@@ -72,26 +72,13 @@ function LoginForm() {
   };
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          marginTop: "2.5rem",
-        }}
-      >
-        <div className="login-container">
-          <h2
-            style={{
-              color: "white",
-              marginTop: "3rem",
-              marginBottom: "2rem",
-            }}
-          >
-            Login
-          </h2>
-          <Form style={{ width: "60%" }} onSubmit={handleEmailAndPasswordLogin}>
+      <div className="pageContainer">
+        <div className="loginFormContainer">
+          <h1 className="pageTitle">Login</h1>
+          <Form className="form" onSubmit={handleEmailAndPasswordLogin}>
             <Form.Group className="mb-4" controlId="formBasicEmail">
               <Form.Control
+                className="input"
                 type="email"
                 placeholder="Email"
                 value={email}
@@ -103,6 +90,7 @@ function LoginForm() {
 
             <Form.Group className="mb-3" controlId="formBasicPassword">
               <Form.Control
+                className="input"
                 type="password"
                 placeholder="Password"
                 value={password}
@@ -112,60 +100,17 @@ function LoginForm() {
               />
             </Form.Group>
             {error && <p style={{ color: "white" }}>{error}</p>}
-            <Button
-              variant="info"
-              type="submit"
-              color="primary"
-              style={{ color: "white" }}
-            >
+            <Button className="button" type="submit">
               Sign In
             </Button>
           </Form>
-          <p style={{ color: "white", fontWeight: "600" }}>Or login with:</p>
-          <div
-            style={{
-              width: "60%",
-              display: "flex",
-              justifyContent: "center",
-              marginTop: "0.5rem",
-              marginBottom: "2rem",
-            }}
-          >
-            <button
-              style={{
-                background: "none",
-                border: "none",
-                padding: "0",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                outline: "none",
-              }}
-              onClick={handleGoogleLogin}
-            >
-              <FaGoogle
-                style={{
-                  color: "white",
-                  fontSize: "2rem",
-                  marginRight: "1rem",
-                }}
-              />
+          <p className="loginWith">Or login with</p>
+          <div className="providersContainer">
+            <button className="customButton" onClick={handleGoogleLogin}>
+              <FaGoogle className="providerButton" />
             </button>
-            <button
-              style={{
-                background: "none",
-                border: "none",
-                padding: "0",
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                outline: "none",
-              }}
-              onClick={handleGitHubLogin}
-            >
-              <FaGithub style={{ color: "white", fontSize: "2rem" }} />
+            <button className="customButton" onClick={handleGitHubLogin}>
+              <FaGithub className="providerButton" />
             </button>
           </div>
         </div>
