@@ -12,7 +12,7 @@ import { sortExpenses } from "../helpers/helpers";
 import DateRange from "./DateRange";
 import { isWithinInterval } from "date-fns";
 import { motion } from "framer-motion";
-
+import { errorToast } from "../helpers/toastify";
 function ExpensesList() {
   const { userData } = useSelector((state) => state.authentication);
   const [expenses, setExpenses] = useState([]);
@@ -27,7 +27,8 @@ function ExpensesList() {
         setOriginalExpenses(expenses);
         setIsLoading(false);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
+        errorToast("Something went wrong. Could not fetch expenses.");
       }
     };
     fetchExpenses();

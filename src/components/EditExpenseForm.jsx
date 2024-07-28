@@ -14,7 +14,7 @@ import { ROUTES } from "../router/routes";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { NavLink, useParams } from "react-router-dom";
 import moment from "moment";
-import { success } from "../helpers/toastify";
+import { success, errorToast } from "../helpers/toastify";
 
 function EditExpenseForm() {
   const [date, setDate] = useState(null);
@@ -35,7 +35,8 @@ function EditExpenseForm() {
         setExpenseDescription(expense.description);
         setExpenseValue(expense.value);
       } catch (err) {
-        console.log(err);
+        // console.log(err);
+        errorToast("Something went wrong. Could not fetch expense data.");
       }
     };
     fetchExpenseData();
@@ -65,7 +66,8 @@ function EditExpenseForm() {
       success("Expense updated 💰");
       navigate(ROUTES.DASHBOARD);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      errorToast("Something went wrong. Could not edit expense.");
     }
   };
 

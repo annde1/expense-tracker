@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../router/routes";
 import { RiMoneyDollarCircleFill } from "react-icons/ri";
 import { NavLink } from "react-router-dom";
-import { success } from "../helpers/toastify";
+import { success, errorToast } from "../helpers/toastify";
 function NewExpenseForm() {
   const [date, setDate] = useState(null);
   const [expenseName, setExpenseName] = useState("");
@@ -48,7 +48,8 @@ function NewExpenseForm() {
       setExpenseValue("");
       navigate(ROUTES.DASHBOARD);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      errorToast("Something went wrong. Could not create expense.");
     }
   };
   return (

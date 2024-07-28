@@ -19,7 +19,7 @@ function Header() {
       dispatch(authActions.logout());
       navigate(ROUTES.LOGIN);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
     }
   };
 

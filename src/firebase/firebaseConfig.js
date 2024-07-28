@@ -21,7 +21,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app);
-console.log(firestore);
+
 const initializePersistence = async () => {
   try {
     await setPersistence(auth, browserLocalPersistence);

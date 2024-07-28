@@ -13,6 +13,7 @@ import { authActions } from "../store/authenticationSlice";
 import { ROUTES } from "../router/routes";
 import { useState } from "react";
 import { formatError } from "../helpers/helpers";
+import { errorToast } from "../helpers/toastify";
 function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,7 +33,8 @@ function LoginForm() {
       );
       navigate(ROUTES.DASHBOARD);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      errorToast("Something went wrong. Login failed.");
     }
   };
 
@@ -49,7 +51,8 @@ function LoginForm() {
       );
       navigate(ROUTES.DASHBOARD);
     } catch (err) {
-      console.log(err);
+      // console.log(err);
+      errorToast("Something went wrong. Login failed.");
     }
   };
 
